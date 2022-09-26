@@ -3,19 +3,31 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        File estrellas=new File(System.getProperty("user.dir")+"/src/main/java/sterne.jpg");
-        File newImg=new File(System.getProperty("user.dir")+"/src/main/java/imaxenova.jpg");
+        String cadea="o tempo está xélido";
+        File newText=new File(System.getProperty("user.dir")+"/src/main/java/text3.txt");
 
-        BufferedInputStream leer=new BufferedInputStream(new FileInputStream(estrellas));
-        BufferedOutputStream escribir=new BufferedOutputStream(new FileOutputStream(newImg)); //if true añadir
 
-        int byteToByte;
+        DataOutputStream escribir=new DataOutputStream(new FileOutputStream(newText)); //if true añadir
+        DataInputStream leer=new DataInputStream(new FileInputStream(newText));
 
-        while ((byteToByte=leer.read())!=-1){
-            escribir.write(byteToByte);
+
+        for (int i = 0; i < 3; i++) {
+            escribir.writeUTF(cadea);
+            //System.out.println("cadea: "+leer.readUTF());
+            System.out.println("escribiendo a cadea: "+cadea);
+            System.out.println("tamańo do fichero: "+escribir.size()+" bytes");
+        }
+
+        System.out.println("tamaño final do fichero: "+escribir.size()+" bytes");
+        System.out.println();
+        while (leer.available()!=0){
+            System.out.println("quedan "+leer.available()+" bytes");
+            System.out.println("cadea: "+leer.readUTF());
         }
 
         escribir.close();
         leer.close();
+
+
     }
 }
